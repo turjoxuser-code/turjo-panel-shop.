@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() && request.auth.uid in [
+        "REPLACE_WITH_YOUR_FIREBASE_AUTH_UID"
+      ];
+    }
+    match /panels/{panelId} {
+      allow read: if resource.data.active == true || isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+    match /orders/{orderId} {
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == "pending"
+        && request.resource.data.amount is number
+        && request.resource.data.amount > 0
+        && request.resource.data.transactionId is string
+        && request.resource.data.transactionId.size() >= 5
+        && request.resource.data.keys().hasOnly([
+          "uid","email","customerName","panelId","panelName","category","duration",
+          "amount","transactionId","senderNumber","status","createdAt","deliveryLink","deliveryPassword"
+        ]);
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}

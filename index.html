@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e83e91"><title>TURJO PANEL SHOP</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body data-page="user">
+<header class="topbar"><a class="brand" href="#"><span class="brand-icon">T</span><span>TURJO <b>PANEL SHOP</b></span></a><div class="top-actions"><span id="userLabel" class="muted">Guest</span><button id="loginBtn" class="btn btn-pink">Gmail Login</button><button id="logoutBtn" class="btn btn-light hidden">Logout</button></div></header>
+<main class="wrap">
+<section class="hero"><div><span class="eyebrow">PREMIUM GAMING PANELS</span><h1>Welcome to <em>TURJO PANEL SHOP</em></h1><p>আপনার প্রয়োজনীয় Gaming Panel বেছে নিন। নিরাপদ Manual Payment এবং Admin Approval-এর মাধ্যমে অর্ডার সম্পন্ন করুন।</p><a class="btn btn-pink" href="#categories">Explore Panels</a></div><div class="hero-mark">TURJO<br><small>PANEL SHOP</small></div></section>
+<section id="categories"><div class="section-head"><div><span class="eyebrow">CHOOSE CATEGORY</span><h2>Find Your Panel</h2></div><div class="tabs"><button class="tab active" data-cat="ALL">ALL</button><button class="tab" data-cat="NON ROOT">NON ROOT</button><button class="tab" data-cat="ROOT">ROOT</button></div></div><div id="panelGrid" class="panel-grid"><div class="empty">Loading panels...</div></div></section>
+<section class="orders-section"><div class="section-head"><div><span class="eyebrow">YOUR PURCHASES</span><h2>My Orders</h2></div></div><div id="myOrders" class="orders-list"><div class="empty">Gmail দিয়ে Login করলে আপনার অর্ডার এখানে দেখা যাবে।</div></div></section>
+</main>
+<footer>TURJO PANEL SHOP © 2026 · Customer Support</footer>
+<div id="buyModal" class="modal hidden"><div class="modal-card"><button class="close" id="closeModal">×</button><span class="eyebrow">SECURE CHECKOUT</span><h2 id="modalPanelName">Buy Panel</h2><div class="field"><label>Duration নির্বাচন করুন</label><select id="durationSelect"></select></div><div class="field"><label>Custom Amount (ঐচ্ছিক)</label><input id="customAmount" type="number" min="1" placeholder="নিজের মূল্য লিখুন"></div><div class="amount-box">Payable Amount: <strong id="payable">৳0</strong></div><div class="payment-box"><div class="nagad-logo">N</div><div><b>Nagad Send Money</b><p>নম্বর: <strong>01946730203</strong></p></div><button id="copyNumber" class="btn btn-light">Copy</button></div><p class="hint">উপরের নম্বরে Send Money করে নিচে Transaction ID দিন। Admin যাচাই করে Approve করবেন।</p><div class="field"><label>আপনার Nagad Transaction ID</label><input id="trxId" maxlength="80" placeholder="যেমন: 8A1B2C3D4E"></div><div class="field"><label>পেমেন্টের Sender Number (ঐচ্ছিক)</label><input id="senderNumber" inputmode="numeric" placeholder="01XXXXXXXXX"></div><button id="submitOrder" class="btn btn-pink full">Submit Payment Details</button><p id="modalMessage" class="message"></p></div></div>
+<script type="module" src="./app.js"></script>
+</body></html>
