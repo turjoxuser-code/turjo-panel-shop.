@@ -1,52 +1,31 @@
-TURJO PANEL SHOP — Firebase starter project
-=============================================
+TURJO PANEL SHOP - UPDATED PROJECT
 
-Included:
-- index.html: public shop
-- login.html: email/password registration and login
-- checkout.html: duration choice and manual Nagad transaction submission
-- orders.html: customer's own orders and approved delivery
-- admin.html: separate admin dashboard
-- style.css / app.js / firebase-config.js
-- firestore.rules / storage.rules
+Folder structure:
+- user/index.html : Public customer website
+- user/app.js     : User login, panels, checkout and order history
+- admin/index.html: Separate admin dashboard
+- admin/app.js    : Panel management, order approval and users
+- style.css       : Shared neon gaming design
+- firebase-config.js : Firebase Web App configuration
+- admin-config.js    : Admin Firebase Auth UID allowlist
 
-IMPORTANT
-This is a starter implementation for legitimate digital products/access services.
-Do not use it to sell cheats, unauthorized access, stolen accounts, or tools that bypass game/security protections.
+IMPORTANT SETUP
+1. Replace all placeholder values in firebase-config.js with your Firebase Web App config.
+2. Sign in once on the user site with the Google account that will be the administrator.
+3. Firebase Console > Authentication > Users: copy that account's UID.
+4. Paste the UID into admin-config.js in ADMIN_UIDS.
+5. Enable Google provider in Firebase Authentication.
+6. Create Firestore Database and apply secure rules (see firestore.rules.example).
+7. Host the complete folder on Firebase Hosting or another HTTPS static host. Do not open index.html directly as a file.
 
-SETUP
-1. Create a Firebase project at https://console.firebase.google.com/
-2. Add a Web App and copy its config into firebase-config.js.
-3. Enable Authentication > Sign-in method > Email/Password.
-   (Firebase calls this Email/Password; users can register using their Gmail address.)
-4. In Authentication > Users, create your admin account, then copy its UID.
-5. Replace REPLACE_WITH_YOUR_ADMIN_UID in:
-   - app.js (ADMIN_UIDS array)
-   - firestore.rules
-   - storage.rules
-   If more than one admin is needed, update app.js and rules consistently.
-6. Create Firestore Database and publish firestore.rules.
-7. Enable Storage and publish storage.rules.
-8. In Authentication > Settings > Authorized domains, add your hosting domain.
-9. Host all files together on HTTPS (Firebase Hosting or GitHub Pages).
-10. Open admin.html, sign in with the admin account, and add products.
+URLs after hosting:
+- User site: /user/
+- Admin site: /admin/
 
-PAYMENT FLOW
-- Customer signs in, selects a product/duration, sends money to the displayed Nagad number,
-  and submits the transaction ID.
-- Admin independently verifies the transaction in Nagad before approving.
-- Admin enters the access username/password/link and approves.
-- Customer sees delivery details in My Orders.
+Firestore collections used:
+- panels: name, category (ROOT/NON ROOT), price1, price2, imageUrl, description, paymentNumber, active
+- orders: uid, email, displayName, panelId, panelName, category, duration, amount, transactionId, senderNumber, status, deliveryLink, deliveryPassword, createdAt
+- profiles: uid, email, displayName
 
-SECURITY / PRODUCTION NOTES
-- Firebase client config is not a secret. Firestore and Storage Rules are the security boundary.
-- Never put a service-account key or private admin password in these files.
-- Use a unique admin account and strong password; enable email verification.
-- The sample uses a UID allowlist. Replace the placeholder everywhere before publishing.
-- Configure Firestore indexes if Firebase asks for one for an order query.
-- For production, add server-side validation (Cloud Functions/Cloud Run) for product prices,
-  payment references, rate limiting, expiry handling, and immutable audit logs.
-- The custom duration amount is entered by the buyer in this starter. For real sales,
-  change this to admin-defined duration/price options so customers cannot choose arbitrary prices.
-- The 1-hour / 2-hour prices shown at checkout are starter examples. Set prices that you actually offer.
-- Manual payment is not automatically verified; an admin must verify it.
+SECURITY NOTE
+The UID allowlist in JavaScript only hides the admin UI; it is NOT a security boundary. Firestore Security Rules must enforce admin-only writes/reads. Review the example rules and replace the placeholder UID there too. Do not publish permissive rules. Delivery passwords should ideally be stored in a server-controlled/private structure, not exposed in public client reads.
