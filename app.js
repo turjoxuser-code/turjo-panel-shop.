@@ -1,5 +1,5 @@
 // Firebase compat SDK is loaded by the HTML pages.
-const ADMIN_UIDS = ["REPLACE_WITH_YOUR_ADMIN_UID"]; // Must match firestore.rules
+const ADMIN_UIDS = ["q4KLDTHkCdbtTfyIQO1vOtdvkDi2"]; // Must match firestore.rules
 const $ = id => document.getElementById(id);
 const money = n => "৳" + Number(n || 0).toLocaleString("en-BD");
 const safe = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
