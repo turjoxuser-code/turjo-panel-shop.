@@ -3,30 +3,22 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
     function isAdmin() {
-      return signedIn() && request.auth.uid in ["PASTE_YOUR_ADMIN_FIREBASE_UID_HERE"];
+      return signedIn() && request.auth.uid == "REPLACE_WITH_YOUR_ADMIN_UID";
     }
-    match /panels/{panelId} {
-      allow read: if (resource.data.active == true) || isAdmin();
+    match /products/{productId} {
+      allow read: if resource.data.active == true || isAdmin();
       allow create, update, delete: if isAdmin();
     }
     match /orders/{orderId} {
       allow create: if signedIn()
-        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
         && request.resource.data.status == "pending"
-        && request.resource.data.amount is number && request.resource.data.amount > 0
-        && request.resource.data.transactionId is string
-        && request.resource.data.transactionId.size() >= 5
         && request.resource.data.keys().hasOnly([
-          "uid","email","customerName","panelId","panelName","category","duration","durationHours",
-          "amount","transactionId","senderNumber","status","createdAt","deliveryLink","deliveryPassword"
+          "userId","userEmail","productId","productName","category",
+          "durationLabel","amount","trxId","status","createdAt"
         ]);
-      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
-      allow update, delete: if isAdmin();
-    }
-    match /profiles/{userId} {
-      allow create, update: if signedIn() && request.auth.uid == userId
-        && request.resource.data.uid == request.auth.uid;
-      allow read: if isAdmin() || (signedIn() && request.auth.uid == userId);
+      allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update: if isAdmin();
       allow delete: if isAdmin();
     }
   }

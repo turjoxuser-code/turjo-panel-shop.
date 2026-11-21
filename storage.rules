@@ -2,15 +2,12 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     function isAdmin() {
-      return request.auth != null && request.auth.uid in [
-        "REPLACE_WITH_YOUR_FIREBASE_AUTH_UID"
-      ];
+      return request.auth != null && request.auth.uid == "REPLACE_WITH_YOUR_ADMIN_UID";
     }
-    match /panel-images/{fileName} {
+    match /product-images/{fileName} {
       allow read: if true;
-      allow write: if isAdmin()
-        && request.resource.size < 5 * 1024 * 1024
-        && request.resource.contentType.matches('image/.*');
+      allow write: if isAdmin() && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
     }
   }
 }
