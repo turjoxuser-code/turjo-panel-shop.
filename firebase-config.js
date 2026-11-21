@@ -1,12 +1,11 @@
-// Firebase Console > Project settings > Your apps > Web app থেকে config বসাও।
+// Existing Firebase project: turjo-panel-shop
 export const firebaseConfig = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "PASTE_MESSAGING_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyAGIhMkKsVKBVncJA9VCxxgVUgsu-XFPZM",
+  authDomain: "turjo-panel-shop.firebaseapp.com",
+  projectId: "turjo-panel-shop",
+  storageBucket: "turjo-panel-shop.firebasestorage.app",
+  messagingSenderId: "931179986332",
+  appId: "1:931179986332:web:8e797d1b056fe9e040dc59",
+  measurementId: "G-FJR2TDD8TM"
 };
-
-// Firebase Authentication-এ Google provider enable করতে হবে।
 export const PAYMENT_NUMBER = "01946730203";
